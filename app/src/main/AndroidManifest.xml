@@ -16,6 +16,7 @@
             android:exported="false" />
         <activity
             android:name=".PlacarActivity"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".PreviousGamesActivity"

@@ -1,8 +1,6 @@
 package ufc.smd.esqueleto_placar
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -22,29 +20,53 @@ import java.io.ObjectOutputStream
 import java.nio.charset.StandardCharsets
 
 class PlacarActivity : AppCompatActivity() {
-    lateinit var placar:Placar
+
+    lateinit var placar: Placar
     lateinit var tvResultadoJogo: TextView
-    var game =0
+
+    var game = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_placar)
-        placar= getIntent().getExtras()?.getSerializable("placar") as Placar
-        tvResultadoJogo= findViewById(R.id.tvPlacar)
+
+        //Recupera da view anterior os dados do jogo cadastrado
+        placar = getIntent().getExtras()?.getSerializable("placar") as Placar
+
+
+        var tvGolsTime1 = findViewById<TextView>(R.id.GolsTime1)
+        var tvGolsTime2 = findViewById<TextView>(R.id.GolsTime2)
+
+        var tvNomeTime1 = findViewById<TextView>(R.id.NomeTime1)
+        var tvNomeTime2 = findViewById<TextView>(R.id.NomeTime2)
+
+        var nomeTimes = placar.nome_partida.split("x")
+
+        tvNomeTime1.text = nomeTimes[0]
+        tvNomeTime2.text = nomeTimes[1]
+
+        Log.v("PDM", nomeTimes[0])
+        Log.v("PDM", nomeTimes[1])
+
         //Mudar o nome da partida
-        val tvNomePartida=findViewById(R.id.tvNomePartida2) as TextView
-        tvNomePartida.text=placar.nome_partida
-        ultimoJogos()
+//        val tvNomePartida = findViewById(R.id.tvNomePartida2) as TextView
+//        tvNomePartida.text=placar.nome_partida
+//        ultimoJogos()
     }
 
     fun alteraPlacar (v:View){
+
         game++
+
         if ((game % 2) != 0) {
             placar.resultado = ""+game+" vs "+ (game-1)
         }else{
             placar.resultado = ""+(game-1)+" vs "+ (game-1)
             vibrar(v)
         }
+
         tvResultadoJogo.text=placar.resultado
+
     }
 
 
@@ -61,7 +83,6 @@ class PlacarActivity : AppCompatActivity() {
          }
 
     }
-
 
     fun saveGame(v: View) {
 
@@ -95,9 +116,6 @@ class PlacarActivity : AppCompatActivity() {
             Log.v("SMD26",placar.resultado)
         }
     }
-
-
-
 
     fun ultimoJogos () {
         val sharedFilename = "PreviousGames"

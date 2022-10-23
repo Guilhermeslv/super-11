@@ -6,34 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btIniciar"
-        android:layout_width="146dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="307dp"
-        android:onClick="openConfig"
-        android:text="Jogar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btPreviousGame"
         android:layout_width="146dp"
         android:layout_height="60dp"
+        android:backgroundTint="@color/purple_500"
         android:onClick="openPreviusGames"
-        android:text="Histórico"
+        android:text="Partidas anteriores"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btIniciar" />
+        app:layout_constraintTop_toBottomOf="@+id/btIniciar"
+        app:layout_constraintVertical_bias="0.161" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btIniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foregroundTint="@color/white"
+        android:onClick="openConfig"
+        android:tint="@color/white"
+        app:backgroundTint="@color/purple_500"
+        app:fabCustomSize="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_media_play"
+        app:tint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btNonSense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="openPermission"
-        android:text="Permission"
+        android:clickable="true"
+        android:foregroundTint="@color/white"
+        android:tint="@color/white"
+        app:backgroundTint="@color/purple_500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@android:drawable/ic_menu_preferences"
+        app:tint="@color/white"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
