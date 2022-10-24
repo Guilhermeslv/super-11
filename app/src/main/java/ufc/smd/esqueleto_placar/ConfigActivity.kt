@@ -11,7 +11,7 @@ import android.widget.Switch
 import data.Placar
 
 class ConfigActivity : AppCompatActivity() {
-    var placar: Placar= Placar("Jogo sem Config","0x0", "20/05/20 10h",false)
+    var placar: Placar= Placar("Jogo sem Config", arrayOf(arrayOf(0,0)), "20/05/20 10h",false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

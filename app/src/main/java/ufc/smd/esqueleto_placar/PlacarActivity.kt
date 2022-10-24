@@ -22,7 +22,6 @@ import java.nio.charset.StandardCharsets
 class PlacarActivity : AppCompatActivity() {
 
     lateinit var placar: Placar
-    lateinit var tvResultadoJogo: TextView
 
     var game = 0
 
@@ -45,8 +44,33 @@ class PlacarActivity : AppCompatActivity() {
         tvNomeTime1.text = nomeTimes[0]
         tvNomeTime2.text = nomeTimes[1]
 
-        Log.v("PDM", nomeTimes[0])
-        Log.v("PDM", nomeTimes[1])
+        //Log.v("PDM", placar.resultado[0].toString());
+
+        tvGolsTime1.setOnClickListener{
+            var golsTime1 = placar.resultado.last()[0]
+            var golsTime2 = placar.resultado.last()[1]
+
+            golsTime1++
+
+            var novoPlacar = arrayOf(golsTime1, golsTime2)
+
+            placar.resultado = placar.resultado.plus(novoPlacar)
+
+            modificaPlacar()
+        }
+
+        tvGolsTime2.setOnClickListener{
+            var golsTime1 = placar.resultado.last()[0]
+            var golsTime2 = placar.resultado.last()[1]
+
+            golsTime2++
+
+            var novoPlacar = arrayOf(golsTime1, golsTime2)
+
+            placar.resultado = placar.resultado.plus(novoPlacar)
+
+            modificaPlacar()
+        }
 
         //Mudar o nome da partida
 //        val tvNomePartida = findViewById(R.id.tvNomePartida2) as TextView
@@ -54,18 +78,13 @@ class PlacarActivity : AppCompatActivity() {
 //        ultimoJogos()
     }
 
-    fun alteraPlacar (v:View){
+    fun modificaPlacar (){
 
-        game++
+        var tvGolsTime1 = findViewById<TextView>(R.id.GolsTime1)
+        var tvGolsTime2 = findViewById<TextView>(R.id.GolsTime2)
 
-        if ((game % 2) != 0) {
-            placar.resultado = ""+game+" vs "+ (game-1)
-        }else{
-            placar.resultado = ""+(game-1)+" vs "+ (game-1)
-            vibrar(v)
-        }
-
-        tvResultadoJogo.text=placar.resultado
+        tvGolsTime1.text = placar.resultado.last()[0].toString()
+        tvGolsTime2.text = placar.resultado.last()[1].toString()
 
     }
 
@@ -113,7 +132,7 @@ class PlacarActivity : AppCompatActivity() {
             var dis = ByteArrayInputStream(meuObjString.toByteArray(Charsets.ISO_8859_1))
             var oos = ObjectInputStream(dis)
             var placarAntigo:Placar=oos.readObject() as Placar
-            Log.v("SMD26",placar.resultado)
+            //Log.v("SMD26",placar.resultado[0])
         }
     }
 

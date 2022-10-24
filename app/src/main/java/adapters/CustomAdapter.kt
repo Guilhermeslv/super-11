@@ -40,7 +40,7 @@ class CustomAdapter(private val mList: List<Placar>) : RecyclerView.Adapter<Cust
 
         //alimentando os elementos a partir do objeto placar
         holder.tvNomePartida.text = placarAnterior.nome_partida
-        holder.tvResultadoJogo.text = placarAnterior.resultado
+        holder.tvResultadoJogo.text = placarAnterior.resultado.toString()
 
         holder.lnCell.setOnClickListener{
             val duration= Snackbar.LENGTH_LONG
