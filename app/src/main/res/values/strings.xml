@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Esqueleto_Placar</string>
+    <string name="time_2">Time 2</string>
+    <string name="time_1">Time 1</string>
+    <string name="iniciar_jogo">Iniciar Jogo</string>
+    <string name="x">X</string>
+    <string name="partidas_anteriores">Partidas anteriores</string>
 </resources>

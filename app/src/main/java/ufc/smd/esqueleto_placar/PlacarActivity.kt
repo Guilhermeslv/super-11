@@ -10,8 +10,12 @@ import android.os.Vibrator
 
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.Chronometer
 import android.widget.TextView
 import androidx.core.content.getSystemService
+import androidx.core.view.isVisible
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import data.Placar
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -22,6 +26,8 @@ import java.nio.charset.StandardCharsets
 class PlacarActivity : AppCompatActivity() {
 
     lateinit var placar: Placar
+    lateinit var timer: Chronometer
+    lateinit var timerButton: FloatingActionButton
 
     var game = 0
 
@@ -32,7 +38,8 @@ class PlacarActivity : AppCompatActivity() {
         //Recupera da view anterior os dados do jogo cadastrado
         placar = getIntent().getExtras()?.getSerializable("placar") as Placar
 
-
+        timer = findViewById<Chronometer>(R.id.c_meter)
+        timerButton = findViewById<FloatingActionButton>(R.id.pauseCrono)
         var tvGolsTime1 = findViewById<TextView>(R.id.GolsTime1)
         var tvGolsTime2 = findViewById<TextView>(R.id.GolsTime2)
 
@@ -40,6 +47,14 @@ class PlacarActivity : AppCompatActivity() {
         var tvNomeTime2 = findViewById<TextView>(R.id.NomeTime2)
 
         var nomeTimes = placar.nome_partida.split("x")
+        val hastimer = placar.has_timer
+
+        if(!hastimer){
+            timer.isVisible = false
+            timerButton.isVisible = false
+        }else{
+            timer.stop()
+        }
 
         tvNomeTime1.text = nomeTimes[0]
         tvNomeTime2.text = nomeTimes[1]
@@ -49,26 +64,18 @@ class PlacarActivity : AppCompatActivity() {
         tvGolsTime1.setOnClickListener{
             var golsTime1 = placar.resultado.last()[0]
             var golsTime2 = placar.resultado.last()[1]
-
             golsTime1++
-
             var novoPlacar = arrayOf(golsTime1, golsTime2)
-
             placar.resultado = placar.resultado.plus(novoPlacar)
-
             modificaPlacar()
         }
 
         tvGolsTime2.setOnClickListener{
             var golsTime1 = placar.resultado.last()[0]
             var golsTime2 = placar.resultado.last()[1]
-
             golsTime2++
-
             var novoPlacar = arrayOf(golsTime1, golsTime2)
-
             placar.resultado = placar.resultado.plus(novoPlacar)
-
             modificaPlacar()
         }
 
@@ -148,5 +155,17 @@ class PlacarActivity : AppCompatActivity() {
             Log.v("PDM22", "Jogo Salvo:"+ prevPlacar.resultado)
         }
 
+    }
+
+    // ic_media_pause
+    // ic_media_play
+    fun PauseTimer(v: View){
+        if(timer.isActivated) {
+            timer.stop()
+            timerButton.setImageResource(R.drawable.play_buttton)
+        }else{
+            timer.start()
+            timerButton.setImageResource(R.drawable.pause)
+        }
     }
 }
