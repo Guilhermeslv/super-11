@@ -11,9 +11,12 @@ import android.os.Vibrator
 
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.Chronometer
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.getSystemService
+import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import data.Placar
 import java.io.ByteArrayInputStream
@@ -28,6 +31,8 @@ import java.util.ArrayList
 class PlacarActivity : AppCompatActivity() {
 
     lateinit var placar: Placar
+    lateinit var timer: Chronometer
+    lateinit var timerButton: FloatingActionButton
     private lateinit var reverter :FloatingActionButton
     private lateinit var btnSave :FloatingActionButton
     private val sharedFilename = "PreviousGames"
@@ -45,7 +50,8 @@ class PlacarActivity : AppCompatActivity() {
         btnSave = findViewById(R.id.btSalvarPlacar)
         reverter = findViewById(R.id.btVerJogos)
 
-
+        timer = findViewById<Chronometer>(R.id.c_meter)
+        timerButton = findViewById<FloatingActionButton>(R.id.pauseCrono)
         var tvGolsTime1 = findViewById<TextView>(R.id.GolsTime1)
         var tvGolsTime2 = findViewById<TextView>(R.id.GolsTime2)
 
@@ -53,6 +59,14 @@ class PlacarActivity : AppCompatActivity() {
         var tvNomeTime2 = findViewById<TextView>(R.id.NomeTime2)
 
         var nomeTimes = placar.nome_partida.split("x")
+        val hastimer = placar.has_timer
+
+        if(!hastimer){
+            timer.isVisible = false
+            timerButton.isVisible = false
+        }else{
+            timer.stop()
+        }
 
         tvNomeTime1.text = nomeTimes[0]
         tvNomeTime2.text = nomeTimes[1]
@@ -203,5 +217,17 @@ class PlacarActivity : AppCompatActivity() {
             Log.v("PDM22", "Jogo Salvo:"+ prevPlacar.resultados)
         }
 
+    }
+
+    // ic_media_pause
+    // ic_media_play
+    fun PauseTimer(v: View){
+        if(timer.isActivated) {
+            timer.stop()
+            timerButton.setImageResource(R.drawable.play_buttton)
+        }else{
+            timer.start()
+            timerButton.setImageResource(R.drawable.pause)
+        }
     }
 }
